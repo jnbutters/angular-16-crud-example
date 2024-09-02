@@ -1,0 +1,94 @@
+<div *ngIf="viewMode; else editable">
+    <div *ngIf="currentSpringTutorial.id">
+      <h4>Tutorial (Spring)</h4>
+      <div>
+        <label><strong>Title:</strong></label> {{ currentSpringTutorial.title }}
+      </div>
+      <div>
+        <label><strong>Description:</strong></label>
+        {{ currentSpringTutorial.description }}
+      </div>
+      <div>
+        <label><strong>Status:</strong></label>
+        {{ currentSpringTutorial.published ? "Published" : "Pending" }}
+      </div>
+  
+      <a
+        class="badge badge-warning"
+        routerLink="/springtutorials/{{ currentSpringTutorial.id }}"
+      >
+        Edit
+      </a>
+    </div>
+  
+    <div *ngIf="!currentSpringTutorial">
+      <br />
+      <p>Please click on a Tutorial (Spring)...</p>
+    </div>
+  </div>
+  
+  <ng-template #editable>
+    <div *ngIf="currentSpringTutorial.id" class="edit-form">
+      <h4>Tutorial (Spring)</h4>
+      <form>
+        <div class="form-group">
+          <label for="title">Title</label>
+          <input
+            type="text"
+            class="form-control"
+            id="title"
+            [(ngModel)]="currentSpringTutorial.title"
+            name="title"
+          />
+        </div>
+        <div class="form-group">
+          <label for="description">Description</label>
+          <input
+            type="text"
+            class="form-control"
+            id="description"
+            [(ngModel)]="currentSpringTutorial.description"
+            name="description"
+          />
+        </div>
+  
+        <div class="form-group">
+          <label><strong>Status:</strong></label>
+          {{ currentSpringTutorial.published ? "Published" : "Pending" }}
+        </div>
+      </form>
+  
+      <button
+        class="badge badge-primary mr-2"
+        *ngIf="currentSpringTutorial.published"
+        (click)="updatePublishedSpring(false)"
+      >
+        UnPublish
+      </button>
+      <button
+        *ngIf="!currentSpringTutorial.published"
+        class="badge badge-primary mr-2"
+        (click)="updatePublishedSpring(true)"
+      >
+        Publish
+      </button>
+  
+      <button class="badge badge-danger mr-2" (click)="deleteTutorialSpring()">
+        Delete
+      </button>
+  
+      <button
+        type="submit"
+        class="badge badge-success mb-2"
+        (click)="updateTutorialSpring()"
+      >
+        Update
+      </button>
+      <p>{{ message }}</p>
+    </div>
+  
+    <div *ngIf="!currentSpringTutorial.id">
+      <br />
+      <p>Cannot access this Tutorial (Spring)...</p>
+    </div>
+  </ng-template>
